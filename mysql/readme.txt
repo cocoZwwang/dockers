@@ -1,0 +1,4 @@
+1. mysql版本使用8.0.16
+2. mysql时区默认设置为东八区 Asia/Shanghai，可以通过TIME_ZONE修改
+3.如果有需要初始化的数据库脚本把sql脚本放到sql文件夹下，脚本的执行顺序按照sql脚本文件排名先后执行，所以可以通过命名的方式控制sql脚本的执行顺序
+4.初始化的root密码是admin，访问控制是%，可以通过环境变量MYSQL_ROOT_PASSWORD和MYSQL_ROOT_HOST修改上面的值
