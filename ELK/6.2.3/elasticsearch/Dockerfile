@@ -29,7 +29,7 @@ ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
 
 ENV ES_HOME_PREFIX /usr/local
 ENV ES_DIR elasticsearch-6.2.3
-ENV ES_HOME &{ES_HOME_PREFIX}/${ES_DIR}
+ENV ES_HOME ${ES_HOME_PREFIX}/${ES_DIR}
 
 RUN mkdir -p ${ES_HOME} && \
     cd /tmp && \
