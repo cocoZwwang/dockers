@@ -24,10 +24,10 @@ RUN apk update \
 RUN apk add --no-cache tzdata \
 	&& cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 
-ARG fileName=elasticsearch-6.2.3.tar.gz
-ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
+ARG fileName=logstash-6.2.3.tar.gz
+ARG downLoadUrl=https://artifacts.elastic.co/downloads/logstash/${fileName}
 
-ENV ES_HOME_PREFIX /usr/local
+ENV logstash_HOME_PREFIX /usr/local
 ENV ES_HOME &{ES_HOME_PREFIX}/elasticsearch
 
 RUN mkdir -p ${ES_HOME} && \
@@ -37,6 +37,6 @@ RUN mkdir -p ${ES_HOME} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
     chmod -R 755 ${ES_HOME} && \
-    ln -s &{ES_HOME}/bin/elasticsearch /usr/local/bin/es
+    ln -s &{ES_HOME}\bin\elasticsearch /usr/local/bin/es
 
 CMD [ "es -d" ]
