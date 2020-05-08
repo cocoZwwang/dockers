@@ -37,7 +37,8 @@ RUN mkdir -p ${LOGSTASH_HOME} && \
     tar xvf ${fileName} -C ${LOGSTASH_HOME_PREFIX} && \
     rm -rf ${fileName} && \
     cd ${LOGSTASH_HOME} && \
+    touch default.conf && \
     chmod -R 755 ${LOGSTASH_HOME} && \
-    ln -s &{LOGSTASH_HOME}/bin/elasticsearch /usr/local/bin/es
+    ln -s ${LOGSTASH_HOME}/bin/logstash lgsh
 
 CMD [ "es -d" ]
