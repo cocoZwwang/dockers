@@ -27,16 +27,17 @@ RUN apk add --no-cache tzdata \
 ARG fileName=logstash-6.2.3.tar.gz
 ARG downLoadUrl=https://artifacts.elastic.co/downloads/logstash/${fileName}
 
+ENV LOGSTASH_DIR logstash-6.2.3
 ENV LOGSTASH_HOME_PREFIX /usr/local
-ENV ES_HOME &{ES_HOME_PREFIX}/elasticsearch
+ENV LOGSTASH_HOME &{LOGSTASH_HOME_PREFIX}/${LOGSTASH_DIR}
 
-RUN mkdir -p ${ES_HOME} && \
+RUN mkdir -p ${LOGSTASH_HOME} && \
     cd /tmp && \
     wget ${downLoadUrl} && \
-    tar xvf ${fileName} -C ${ES_HOME_PREFIX} && \
+    tar xvf ${fileName} -C ${LOGSTASH_HOME_PREFIX} && \
     rm -rf ${fileName} && \
-    cd ${ES_HOME} && \
-    chmod -R 755 ${ES_HOME} && \
-    ln -s &{ES_HOME}/bin\elasticsearch /usr/local/bin/es
+    cd ${LOGSTASH_HOME} && \
+    chmod -R 755 ${LOGSTASH_HOME} && \
+    ln -s &{LOGSTASH_HOME}/bin/elasticsearch /usr/local/bin/es
 
 CMD [ "es -d" ]

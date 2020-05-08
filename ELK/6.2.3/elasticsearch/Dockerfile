@@ -38,6 +38,6 @@ RUN mkdir -p ${ES_HOME} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
     chmod -R 755 ${ES_HOME} && \
-    ln -s &{ES_HOME}/bin/elasticsearch /usr/local/bin/es
+    ln -s ${ES_HOME}/bin/elasticsearch /usr/local/bin/es
 
 CMD [ "es -d" ]
