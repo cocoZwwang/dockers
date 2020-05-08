@@ -28,7 +28,8 @@ ARG fileName=elasticsearch-6.2.3.tar.gz
 ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
 
 ENV ES_HOME_PREFIX /usr/local
-ENV ES_HOME &{ES_HOME_PREFIX}/elasticsearch
+ENV ES_DIR elasticsearch-6.2.3
+ENV ES_HOME &{ES_HOME_PREFIX}/${ES_DIR}
 
 RUN mkdir -p ${ES_HOME} && \
     cd /tmp && \
