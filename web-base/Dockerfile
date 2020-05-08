@@ -28,23 +28,25 @@ ARG servicName
 ARG port
 ENV SERVICE_NAME ${servicName}
 ENV LIB_DIR ${SERVICE_NAME}/lib
-ENV CONFIG_DIR ${SERVICE_NAME}/config
-ENV CONFIG_PATH $CONFIG_DIR
+ENV CONFIG_DIR /config
+ENV CONFIG_PATH /$CONFIG_DIR
 
-RUN mkdir -p $SERVICE_NAME
-RUN mkdir -p $CONFIG_DIR
-RUN mkdir -p $LIB_DIR
+RUN mkdir -p $SERVICE_NAME && \
+    mkdir -p $CONFIG_DIR && \
+    mkdir -p $LIB_DIR && \
+    mkdir -p $SERVICE_NAME/bin
 
 #添加config文件到$CONFIG_PATH
-COPY ./config/ ./$CONFIG_PATH/
+COPY ./config/ /$CONFIG_PATH/
 #添加jar
 COPY $SERVICE_NAME.jar ./$SERVICE_NAME/
 #添加启动脚本
-ADD run.sh /run.sh
+COPY run.sh /run.sh
 #添加dockerize
-ADD dockerize /dockerize
-RUN chmod a+x /dockerize
+COPY dockerize /dockerize
+RUN chmod a+x /dockerize && \
+    chmod a+x /run.sh 
 # 声明需要暴露的端口
 EXPOSE $port
 # 配置容器启动后执行的命令
-CMD ./dockerize sh /run.sh
+CMD dockerize run.sh 
