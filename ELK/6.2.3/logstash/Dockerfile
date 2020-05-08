@@ -39,6 +39,8 @@ RUN mkdir -p ${LOGSTASH_HOME} && \
     cd ${LOGSTASH_HOME} && \
     touch default.conf && \
     chmod -R 755 ${LOGSTASH_HOME} && \
-    ln -s ${LOGSTASH_HOME}/bin/logstash lgsh
+    ln -s ${LOGSTASH_HOME}/bin/logstash lgsh && \
+    ln -s ${LOGSTASH_HOME}/default.conf lgsh-default.conf
+    # sed -i "/.*alias rm=.*/i\alias lgsh='$LOGSTASH_HOME/bin/logstash -f $LOGSTASH_HOME/default.conf'" ~/.bashrc
 
-CMD [ "es -d" ]
+CMD [ "lgsh -f lgsh-default.conf" ]
