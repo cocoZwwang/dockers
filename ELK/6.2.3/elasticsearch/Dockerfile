@@ -47,4 +47,4 @@ RUN mkdir -p ${ES_HOME} && \
     # ln -s ${ES_HOME}/bin/elasticsearch-translog /usr/bin/elasticsearch-translog
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD ["/usr/local/bin/elasticsearch -d"]
+CMD ["/usr/local/elasticsearch-6.2.3/bin/elasticsearch -d"]
