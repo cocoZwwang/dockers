@@ -30,6 +30,7 @@ ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
 ENV ES_HOME_PREFIX /usr/local
 ENV ES_DIR elasticsearch-6.2.3
 ENV ES_HOME ${ES_HOME_PREFIX}/${ES_DIR}
+COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
 RUN mkdir -p ${ES_HOME} && \
     cd /tmp && \
@@ -38,6 +39,8 @@ RUN mkdir -p ${ES_HOME} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
     chmod -R 755 ${ES_HOME} && \
+    chmod +x /usr/bin/docker-entrypoint.sh && \
     ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es
 
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD [ "es -d" ]
