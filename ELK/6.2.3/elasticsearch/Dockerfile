@@ -39,12 +39,12 @@ RUN mkdir -p ${ES_HOME} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
     chmod -R 755 ${ES_HOME} && \
-    chmod +x /usr/bin/docker-entrypoint.sh && \
-    ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es && \
-    ln -s ${ES_HOME}/bin/elasticsearch-env /usr/bin/elasticsearch-env && \
-    ln -s ${ES_HOME}/bin/elasticsearch-keystore /usr/bin/elasticsearch-keystore && \
-    ln -s ${ES_HOME}/bin/elasticsearch-plugin /usr/bin/elasticsearch-plugin && \
-    ln -s ${ES_HOME}/bin/elasticsearch-translog /usr/bin/elasticsearch-translog
+    chmod +x /usr/bin/docker-entrypoint.sh
+    # ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es && \
+    # ln -s ${ES_HOME}/bin/elasticsearch-env /usr/bin/elasticsearch-env && \
+    # ln -s ${ES_HOME}/bin/elasticsearch-keystore /usr/bin/elasticsearch-keystore && \
+    # ln -s ${ES_HOME}/bin/elasticsearch-plugin /usr/bin/elasticsearch-plugin && \
+    # ln -s ${ES_HOME}/bin/elasticsearch-translog /usr/bin/elasticsearch-translog
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD ["es","-d"]
+CMD ["/usr/local/bin/elasticsearch -d"]
