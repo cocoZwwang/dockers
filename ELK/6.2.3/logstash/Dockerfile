@@ -29,7 +29,7 @@ ARG downLoadUrl=https://artifacts.elastic.co/downloads/logstash/${fileName}
 
 ENV LOGSTASH_DIR logstash-6.2.3
 ENV LOGSTASH_HOME_PREFIX /usr/local
-ENV LOGSTASH_HOME &{LOGSTASH_HOME_PREFIX}/${LOGSTASH_DIR}
+ENV LOGSTASH_HOME ${LOGSTASH_HOME_PREFIX}/${LOGSTASH_DIR}
 
 RUN mkdir -p ${LOGSTASH_HOME} && \
     cd /tmp && \

@@ -1,3 +1,4 @@
 PATH=/usr/bin:$PATH
 exoort $PATH
-exec $@
+echo "run====>$@"
+exec "$@"
