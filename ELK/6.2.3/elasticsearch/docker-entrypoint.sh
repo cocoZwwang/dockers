@@ -1,5 +1,5 @@
 #!/bin/bash
 PATH=/usr/bin:$PATH
-exoort $PATH
+export $PATH
 echo "run====>$@"
 exec "$@"
