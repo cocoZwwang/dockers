@@ -23,21 +23,3 @@ RUN apk update \
 #安装tzdata安装包,设置时区${TIME_ZONE}
 RUN apk add --no-cache tzdata \
 	&& cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
-
-ARG fileName=elasticsearch-6.2.3.tar.gz
-ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
-
-ENV ES_HOME_PREFIX /usr/local
-ENV ES_DIR elasticsearch-6.2.3
-ENV ES_HOME ${ES_HOME_PREFIX}/${ES_DIR}
-
-RUN mkdir -p ${ES_HOME} && \
-    cd /tmp && \
-    wget ${downLoadUrl} && \
-    tar xvf ${fileName} -C ${ES_HOME_PREFIX} && \
-    rm -rf ${fileName} && \
-    cd ${ES_HOME} && \
-    chmod -R 755 ${ES_HOME} && \
-    ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es
-
-CMD [ "es -d" ]
