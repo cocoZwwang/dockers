@@ -51,4 +51,4 @@ RUN mkdir -p ${ES_HOME} && \
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 # CMD ["sh","-c","${ES_HOME}/bin/elasticsearch","-d"]
-CMD ["cd","/usr/local/elasticsearch/bin","./elasticsearch","-d"]
+CMD ["./bin/elasticsearch","-d"]
