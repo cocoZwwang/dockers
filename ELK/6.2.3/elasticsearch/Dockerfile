@@ -38,8 +38,12 @@ RUN mkdir -p ${ES_HOME} && \
     tar xvf ${fileName} -C ${ES_HOME_PREFIX} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
+    useradd esadmin && \
+    echo "esadmin" | passwd --stdin esadmin && \
     chmod -R 755 ${ES_HOME} && \
-    chmod +x /usr/bin/docker-entrypoint.sh
+    chown -R esadmin.esadmin ${ES_HOME} && \
+    chmod +x /usr/bin/docker-entrypoint.sh && \
+    su esadmin
     # ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es && \
     # ln -s ${ES_HOME}/bin/elasticsearch-env /usr/bin/elasticsearch-env && \
     # ln -s ${ES_HOME}/bin/elasticsearch-keystore /usr/bin/elasticsearch-keystore && \
