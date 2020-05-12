@@ -28,7 +28,7 @@ ARG fileName=elasticsearch-6.2.3.tar.gz
 ARG downLoadUrl=https://artifacts.elastic.co/downloads/elasticsearch/${fileName}
 
 ENV ES_HOME_PREFIX /usr/local
-ENV ES_DIR elasticsearch-6.2.3
+ENV ES_DIR elasticsearch
 ENV ES_HOME ${ES_HOME_PREFIX}/${ES_DIR}
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 
@@ -38,12 +38,11 @@ RUN mkdir -p ${ES_HOME} && \
     tar xvf ${fileName} -C ${ES_HOME_PREFIX} && \
     rm -rf ${fileName} && \
     cd ${ES_HOME} && \
-    useradd esadmin && \
-    echo "esadmin" | passwd --stdin esadmin && \
-    chmod -R 755 ${ES_HOME} && \
-    chown -R esadmin.esadmin ${ES_HOME} && \
     chmod +x /usr/bin/docker-entrypoint.sh && \
-    su esadmin
+    addgroup -g 1000 -S elasticsearch && \
+    adduser elasticsearch -D -G elasticsearch -u 1000 -s /bin/sh && \
+    chown -R elasticsearch.elasticsearch ${ES_HOME} && \
+    su elasticsearch
     # ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es && \
     # ln -s ${ES_HOME}/bin/elasticsearch-env /usr/bin/elasticsearch-env && \
     # ln -s ${ES_HOME}/bin/elasticsearch-keystore /usr/bin/elasticsearch-keystore && \
@@ -52,4 +51,4 @@ RUN mkdir -p ${ES_HOME} && \
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 # CMD ["sh","-c","${ES_HOME}/bin/elasticsearch","-d"]
-CMD ["/usr/local/elasticsearch-6.2.3/bin/elasticsearch","-d"]
+CMD ["/usr/local/elasticsearch/bin/elasticsearch","-d"]
