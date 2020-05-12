@@ -42,7 +42,9 @@ RUN mkdir -p ${ES_HOME} && \
     addgroup -g 1000 -S elasticsearch && \
     adduser elasticsearch -D -G elasticsearch -u 1000 -s /bin/sh && \
     chown -R elasticsearch.elasticsearch ${ES_HOME} && \
-    su elasticsearch
+    su elasticsearch && \
+    chmod 755 -R $ES_HOME && \
+    chmod +x -R $ES_HOME
     # ln -s ${ES_HOME}/bin/elasticsearch /usr/bin/es && \
     # ln -s ${ES_HOME}/bin/elasticsearch-env /usr/bin/elasticsearch-env && \
     # ln -s ${ES_HOME}/bin/elasticsearch-keystore /usr/bin/elasticsearch-keystore && \
