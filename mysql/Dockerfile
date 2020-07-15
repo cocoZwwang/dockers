@@ -13,6 +13,7 @@ ENV AUTO_RUN_DIR /docker-entrypoint-initdb.d
 
 #配置目录
 ENV CNF_DIR /etc
+ENV LOG_DIR /var/log/mysql
 ENV FILE_CNF my.cnf
 ENV SQL_DIR sql
 
@@ -22,13 +23,14 @@ ENV MYSQL_ROOT_HOST %
 ENV MYSQL_ROOT_PASSWORD admin
 
 #设置时区
-RUN cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
 #创建文件夹
-RUN mkdir -p $WORK_PATH
-RUN touch /$LOG_DIR/mysqld.log
+
+RUN cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime && \
+    mkdir -p $WORK_PATH/$SQL_DIR && \
+    touch /$LOG_DIR/mysqld.log
 
 #把要执行的sql文件放到WORK_PATH目录下，让脚本执行
-COPY ./sql/ $WORK_PATH/$SQL_DIR/
+# COPY ./sql/ $WORK_PATH/$SQL_DIR/
 COPY ./$FILE_CNF $CNF_DIR/
 #把要执行的shell文件放到/docker-entrypoint-initdb.d/目录下，容器会自动执行这个shell
 COPY ./$INSTALL_SHELL $AUTO_RUN_DIR/
