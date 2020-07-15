@@ -27,7 +27,7 @@ ENV MYSQL_ROOT_PASSWORD admin
 
 RUN cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime && \
     mkdir -p $WORK_PATH/$SQL_DIR && \
-    touch /$LOG_DIR/mysqld.log
+    touch $LOG_DIR/mysqld.log
 
 #把要执行的sql文件放到WORK_PATH目录下，让脚本执行
 # COPY ./sql/ $WORK_PATH/$SQL_DIR/
