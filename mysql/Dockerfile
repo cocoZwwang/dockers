@@ -29,7 +29,7 @@ RUN cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime && \
     mkdir -p $WORK_PATH/$SQL_DIR && \
     mkdir -p $LOG_DIR && \
     touch $LOG_DIR/mysqld.log && \
-    chmod 755 -R $LOG_DIR && \
+    chmod 777 -R $LOG_DIR && \
     chown -R mysql:mysql $LOG_DIR && \
     true
 
